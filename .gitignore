@@ -1,0 +1,19 @@
+# Data (too big for GitHub)
+data/
+
+# Secrets and local settings
+.env
+*.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Airflow runtime files
+airflow/logs/
+dags/__pycache__/
+
+# Power BI temp files and OS junk
+*.tmp
+.DS_Store
+Thumbs.db
