@@ -192,7 +192,24 @@ docker-compose.yml
 
 A Spark MLlib model for predicting flight delays. It reads from `flights.flights` and writes results to `flights.predictions`.
 
+## Screenshots
 
+**Power BI (historical analysis)**
+
+![Power BI 1](screenshots/powerbi-airlines.png)
+![Power BI 2](screenshots/powerbi-airlines2.png)
+![Power BI 3](screenshots/powerbi-airlines3.png)
+![Power BI 4](screenshots/powerbi-airlines4.png)
+![Power BI 5](screenshots/powerbi-airlines5.png)
+
+**Grafana (real-time)**
+
+![Grafana live dashboard](screenshots/grafana-live.png)
+![Grafana alert firing](screenshots/grafana-alert-firing.png)
+
+**Airflow (orchestration)**
+
+![Airflow DAG](screenshots/airflow-dag.png)
 
 \## Notes
 
