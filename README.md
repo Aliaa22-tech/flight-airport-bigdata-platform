@@ -147,6 +147,13 @@ Both paths share ClickHouse as the analytics layer.
 \- \*\*Power BI\*\* (historical analysis): connects to ClickHouse and reads the `agg\_\*` tables.
 
 \- \*\*Grafana\*\* (real-time): live KPIs, delay rate by airline, flight status distribution and a high-delay-rate alert.
+### Restoring the Grafana dashboard and alert
+
+The exported files are in the `grafana/` folder.
+
+1. Open Grafana at http://localhost:3000 and add a ClickHouse data source (Connections -> Add new connection -> ClickHouse). Use host `clickhouse`, port `8123` (HTTP), user `admin`, password `admin123`, database `flights`.
+2. Dashboard: Dashboards -> New -> Import -> upload `grafana/live-flights-dashboard.json`, then pick the ClickHouse data source you just created.
+3. Alert: Alerting -> Alert rules -> Import (or New alert rule) and use `grafana/high-delay-alert.yaml` as the reference.
 
 
 

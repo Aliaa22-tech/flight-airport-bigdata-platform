@@ -1,0 +1,92 @@
+apiVersion: 1
+groups:
+    - orgId: 1
+      name: flight-alerts
+      folder: Flights
+      interval: 1m
+      rules:
+        - uid: cg0n726wvnz0ge
+          title: High Delay Rate
+          condition: C
+          data:
+            - refId: A
+              queryType: timeseries
+              relativeTimeRange:
+                from: 600
+                to: 0
+              datasourceUid: bg0jgbn9rzwu8b
+              model:
+                editorType: sql
+                format: 0
+                intervalMs: 1000
+                maxDataPoints: 43200
+                meta:
+                    builderOptions:
+                        columns: []
+                        database: ""
+                        limit: 1000
+                        mode: list
+                        queryType: table
+                        table: ""
+                pluginVersion: 4.22.1
+                queryType: timeseries
+                rawSql: "SELECT\r\n  now() AS time,\r\n  round(100 * countIf(delay_category != 'On time' AND cancelled = 0) / countIf(cancelled = 0), 1) AS delay_rate\r\nFROM flights.flights_live\r\nWHERE event_time >= now() - INTERVAL 5 MINUTE"
+                refId: A
+            - refId: B
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params: []
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - B
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: A
+                intervalMs: 1000
+                maxDataPoints: 43200
+                reducer: last
+                refId: B
+                type: reduce
+            - refId: C
+              datasourceUid: __expr__
+              model:
+                conditions:
+                    - evaluator:
+                        params:
+                            - 35
+                        type: gt
+                      operator:
+                        type: and
+                      query:
+                        params:
+                            - C
+                      reducer:
+                        params: []
+                        type: last
+                      type: query
+                datasource:
+                    type: __expr__
+                    uid: __expr__
+                expression: B
+                intervalMs: 1000
+                maxDataPoints: 43200
+                refId: C
+                type: threshold
+          noDataState: NoData
+          execErrState: Error
+          for: 1m
+          annotations:
+            summary: Delay rate is above 35% in the last 5 minutes
+          isPaused: false
+          notification_settings:
+            receiver: grafana-default-email
