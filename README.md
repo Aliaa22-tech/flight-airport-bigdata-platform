@@ -145,6 +145,13 @@ Both paths share ClickHouse as the analytics layer.
 
 
 \- \*\*Power BI\*\* (historical analysis): connects to ClickHouse and reads the `agg\_\*` tables.
+### Power BI file
+
+The report is in `powerbi/flight_dashboard.pbix`. It connects to ClickHouse on `localhost`, so before opening it you need to:
+
+1. Install Power BI Desktop and the ClickHouse ODBC driver.
+2. Start the containers and run the Airflow DAG so the `agg_*` tables are filled.
+3. Open the file and click Refresh.
 
 \- \*\*Grafana\*\* (real-time): live KPIs, delay rate by airline, flight status distribution and a high-delay-rate alert.
 ### Restoring the Grafana dashboard and alert
