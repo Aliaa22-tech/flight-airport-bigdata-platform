@@ -98,6 +98,7 @@ services:
       - KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS=0
       - KAFKA_HEAP_OPTS=-Xms512M -Xmx512M
 
+  
   producer:
     build: ./producer
     container_name: producer
@@ -106,10 +107,13 @@ services:
     environment:
       - KAFKA_BOOTSTRAP=kafka:9092
       - TOPIC=flight-events
-      - RATE=10
-      - SOURCE_FILE=/data/2025/2025_12.csv
+      - DATA_DIR=/data
+      - RATE=100
+      - CHUNK_SIZE=5000
+      - PROGRESS_EVERY=1000
     volumes:
       - ./data:/data:ro
+
 
   grafana:
     image: grafana/grafana:11.3.0
