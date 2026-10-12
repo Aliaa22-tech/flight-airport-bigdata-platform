@@ -1,0 +1,1092 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 1,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "eg0r0uouwm96oc"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "table",
+          "rawSql": "SELECT count() AS flights\r\nFROM flights.flights_live\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Total Flights ",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 3,
+        "y": 0
+      },
+      "id": 9,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorType": "sql",
+          "format": 2,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "flights",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "filter_time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                },
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "log_level",
+                  "key": "",
+                  "operator": "IS ANYTHING",
+                  "type": "string",
+                  "value": ""
+                }
+              ],
+              "limit": 1000,
+              "meta": {
+                "otelEnabled": false
+              },
+              "mode": "list",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "filter_time",
+                  "name": ""
+                },
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "logs",
+              "table": "otel_logs"
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "logs",
+          "rawSql": "SELECT countIf(arr_delay > 15) AS delayed_flights\r\nFROM flights.flights_live\r\nWHERE $__timeFilter(event_time)",
+          "refId": "A"
+        }
+      ],
+      "title": "Delayed Flights",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-purple",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "avg_arr_delay"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 11,
+        "x": 6,
+        "y": 0
+      },
+      "id": 5,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "eg0r0uouwm96oc"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n    airline,\r\n    round(avg(arr_delay), 2) AS avg_arr_delay\r\nFROM flights.flights_live\r\nWHERE arr_delay IS NOT NULL\r\n  AND airline IS NOT NULL\r\n  AND airline != ''\r\nGROUP BY airline\r\nORDER BY avg_arr_delay DESC",
+          "refId": "A"
+        }
+      ],
+      "title": "Avg Delay Rate by Airline",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu",
+            "seriesBy": "max"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 17,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "eg0r0uouwm96oc"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n  toStartOfInterval(event_time, INTERVAL 10 second) AS time,\r\n  count() AS flights\r\nFROM flights.flights_live\r\nGROUP BY time\r\nORDER BY time",
+          "refId": "A"
+        }
+      ],
+      "title": "Real-Time Flight Volume (10-Second Intervals)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "flights"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "On time"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#6050dc",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Delayed"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#d52db7",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Severe delay"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ff2e7e",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Cancelled"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "#ff6b45",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 6,
+        "x": 0,
+        "y": 4
+      },
+      "id": 6,
+      "options": {
+        "displayLabels": [
+          "percent"
+        ],
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true,
+          "values": [
+            "percent"
+          ]
+        },
+        "pieType": "pie",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "/^flights$/",
+          "values": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "eg0r0uouwm96oc"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n  if(cancelled = 1, 'Cancelled', delay_category) AS status,\r\n  count() AS flights\r\nFROM flights.flights_live\r\nGROUP BY status\r\nORDER BY flights DESC",
+          "refId": "A"
+        }
+      ],
+      "title": "Flight Status Distribution",
+      "type": "piechart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            },
+            "inspect": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 7,
+        "x": 17,
+        "y": 9
+      },
+      "id": 10,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorType": "sql",
+          "format": 2,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "flights",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "filter_time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                },
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "log_level",
+                  "key": "",
+                  "operator": "IS ANYTHING",
+                  "type": "string",
+                  "value": ""
+                }
+              ],
+              "limit": 1000,
+              "meta": {
+                "otelEnabled": false
+              },
+              "mode": "list",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "filter_time",
+                  "name": ""
+                },
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "logs",
+              "table": "otel_logs"
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "logs",
+          "rawSql": "SELECT\r\n    event_time,\r\n    airline,\r\n    origin,\r\n    dest,\r\n    dep_delay,\r\n    arr_delay,\r\n    cancelled,\r\n    delay_category\r\nFROM flights.flights_live\r\nWHERE $__timeFilter(event_time)\r\nORDER BY event_time DESC\r\nLIMIT 50",
+          "refId": "A"
+        }
+      ],
+      "title": "Latest Flight Events",
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "fillOpacity": 80,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineWidth": 1,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "cancellation_rate"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-BlPu"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 11,
+        "x": 6,
+        "y": 10
+      },
+      "id": 7,
+      "options": {
+        "barRadius": 0,
+        "barWidth": 0.97,
+        "fullHighlight": false,
+        "groupWidth": 0.7,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "orientation": "auto",
+        "showValue": "auto",
+        "stacking": "none",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        },
+        "xTickLabelRotation": 0,
+        "xTickLabelSpacing": 0
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorType": "sql",
+          "format": 2,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "flights",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "filter_time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                },
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "log_level",
+                  "key": "",
+                  "operator": "IS ANYTHING",
+                  "type": "string",
+                  "value": ""
+                }
+              ],
+              "limit": 1000,
+              "meta": {
+                "otelEnabled": false
+              },
+              "mode": "list",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "filter_time",
+                  "name": ""
+                },
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "logs",
+              "table": "otel_logs"
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "logs",
+          "rawSql": "SELECT\r\n    airline,\r\n    round(\r\n        100.0 * countIf(cancelled = 1)\r\n        / nullIf(count(), 0),\r\n        2\r\n    ) AS cancellation_rate\r\nFROM flights.flights_live\r\nWHERE $__timeFilter(event_time)\r\n  AND airline IS NOT NULL\r\n  AND airline != ''\r\nGROUP BY airline\r\nORDER BY cancellation_rate DESC",
+          "refId": "A"
+        }
+      ],
+      "title": "Cancellation Rate by Airline",
+      "type": "barchart"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "super-light-yellow",
+                "value": 10
+              },
+              {
+                "color": "#EAB839",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 50
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 0,
+        "y": 13
+      },
+      "id": 8,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "editorType": "sql",
+          "format": 2,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "flights",
+              "filters": [
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "filter_time",
+                  "key": "",
+                  "operator": "WITH IN DASHBOARD TIME RANGE",
+                  "type": "datetime"
+                },
+                {
+                  "condition": "AND",
+                  "filterType": "custom",
+                  "hint": "log_level",
+                  "key": "",
+                  "operator": "IS ANYTHING",
+                  "type": "string",
+                  "value": ""
+                }
+              ],
+              "limit": 1000,
+              "meta": {
+                "otelEnabled": false
+              },
+              "mode": "list",
+              "orderBy": [
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "filter_time",
+                  "name": ""
+                },
+                {
+                  "default": true,
+                  "dir": "DESC",
+                  "hint": "time",
+                  "name": ""
+                }
+              ],
+              "queryType": "logs",
+              "table": "otel_logs"
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "logs",
+          "rawSql": "SELECT round(\r\n    100.0 * countIf(cancelled = 1)\r\n    / nullIf(count(), 0),\r\n    2\r\n) AS cancellation_rate\r\nFROM flights.flights_live\r\nWHERE $__timeFilter(event_time)",
+          "refId": "A"
+        }
+      ],
+      "title": "Cancellation Rate",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "type": "grafana-clickhouse-datasource",
+        "uid": "eg0r0uouwm96oc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 20
+              },
+              {
+                "color": "yellow",
+                "value": 30
+              },
+              {
+                "color": "red",
+                "value": 40
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 3,
+        "x": 3,
+        "y": 13
+      },
+      "id": 3,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.3.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-clickhouse-datasource",
+            "uid": "eg0r0uouwm96oc"
+          },
+          "editorType": "sql",
+          "format": 1,
+          "meta": {
+            "builderOptions": {
+              "columns": [],
+              "database": "",
+              "limit": 1000,
+              "mode": "list",
+              "queryType": "table",
+              "table": ""
+            }
+          },
+          "pluginVersion": "4.22.1",
+          "queryType": "table",
+          "rawSql": "SELECT\r\n  round(100 * countIf(delay_category != 'On time' AND cancelled = 0) / countIf(cancelled = 0), 1) AS delay_rate\r\nFROM flights.flights_live\r\n",
+          "refId": "A"
+        }
+      ],
+      "title": "Delay Rate",
+      "type": "gauge"
+    }
+  ],
+  "preload": false,
+  "refresh": "5s",
+  "schemaVersion": 40,
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Live Flights",
+  "uid": "cg0jipjexiqkgf",
+  "version": 5,
+  "weekStart": ""
+}
